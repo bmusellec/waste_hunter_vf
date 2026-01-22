@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Hunter - Discussion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #4D6DB1;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 100px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(135deg, rgba(181, 210, 221, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 10% 20%, rgba(181, 210, 221, 0.3) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 80%, rgba(181, 210, 221, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 60%, rgba(181, 210, 221, 0.2) 0%, transparent 45%),
+                radial-gradient(ellipse at 70% 30%, rgba(181, 210, 221, 0.15) 0%, transparent 40%);
+            opacity: 0.6;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* === MENU DE NAVIGATION === */
+        .navigation-menu {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #b5d2dd;
+            border-radius: 50px;
+            padding: 15px 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #4D6DB1;
+            min-width: 80px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(77, 109, 177, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .nav-item.active {
+            background-color: #4D6DB1;
+            color: #fff;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .settings-btn {
+            background-color: #c26c7a;
+            color: #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+            border: none;
+            font-size: 24px;
+        }
+
+        .settings-btn:hover {
+            background-color: #b05867;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* === CONTENU PRINCIPAL === */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            color: #b5d2dd;
+            font-size: 72px;
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 20px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chat-section, .events-section {
+            background-color: #b5d2dd;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-section h2, .events-section h2 {
+            color: #000;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .messages-container {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            border-left: 4px solid #4D6DB1;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .message-author {
+            font-weight: 700;
+            color: #4D6DB1;
+            font-size: 16px;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .message-content {
+            color: #000;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-group textarea {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 16px;
+            resize: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .input-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(77, 109, 177, 0.3);
+        }
+
+        .btn-send {
+            padding: 15px 30px;
+            background-color: #c26c7a;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .btn-send:hover {
+            background-color: #b05867;
+            transform: translateY(-2px);
+        }
+
+        .btn-send:active {
+            transform: translateY(0);
+        }
+
+        .event-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-countdown {
+            background-color: #c26c7a;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .event-title {
+            color: #4D6DB1;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .event-info {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .event-info strong {
+            color: #000;
+        }
+
+        .event-type {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: #4D6DB1;
+            color: #fff;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .btn-participate {
+            width: 100%;
+            padding: 10px;
+            background-color: #4D6DB1;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-participate:hover {
+            background-color: #3d5a94;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 48px;
+            }
+
+            .navigation-menu {
+                width: 95%;
+                padding: 10px 15px;
+                gap: 5px;
+            }
+
+            .nav-item {
+                padding: 10px 12px;
+                min-width: 60px;
+            }
+
+            .nav-icon {
+                font-size: 20px;
+            }
+
+            .nav-label {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .chat-section, .events-section {
+                padding: 20px;
+            }
+
+            .messages-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- MENU DE NAVIGATION -->
+    <nav class="navigation-menu">
+        <a href="index.html" class="nav-item">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-label">Accueil</div>
+        </a>
+        <a href="impact.html" class="nav-item">
+            <div class="nav-icon">📊</div>
+            <div class="nav-label">Impact</div>
+        </a>
+        <a href="discussion_barre_recherche.html" class="nav-item active">
+            <div class="nav-icon">💬</div>
+            <div class="nav-label">Discussion</div>
+        </a>
+        <a href="calendrier.html" class="nav-item">
+            <div class="nav-icon">📅</div>
+            <div class="nav-label">Calendrier</div>
+        </a>
+        <button class="settings-btn" onclick="window.location.href='parametres.html'">⚙️</button>
+    </nav>
+
+    <div class="container">
+        <h1 class="title">Waste Hunter</h1>
+        
+        <div class="main-content">
+            <!-- Section Discussion -->
+            <div class="chat-section">
+                <h2>Discussion</h2>
+                <div class="messages-container" id="messagesContainer">
+                    <!-- Messages existants -->
+                    <div class="message">
+                        <div class="message-header">
+                            <span class="message-author">ASSOCIATION TERRE OCÉANE</span>
+                            <span class="message-time">09/01/2026 14:30</span>
+                        </div>
+                        <div class="message-content">
+                            ON VOUS PROPOSE UN RAMASSAGE DE DÉCHETS LE SAMEDI 24/01 AVEC UN GOUTER À 16H
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="message-header">
+                            <span class="message-author">SYLVIE</span>
+                            <span class="message-time">09/01/2026 15:45</span>
+                        </div>
+                        <div class="message-content">
+                            BONJOUR, JE SERAIS LA AVEC UN GATEAU AU CHOCOLAT
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="message-header">
+                            <span class="message-author">ASSOCIATION TERRE OCÉANE</span>
+                            <span class="message-time">10/01/2026 09:00</span>
+                        </div>
+                        <div class="message-content">
+                            SUPER À SAMEDI
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Écrivez votre message..."
+                        rows="3"
+                    ></textarea>
+                    <button class="btn-send" onclick="sendMessage()">Envoyer</button>
+                </div>
+            </div>
+
+            <!-- Section Événements -->
+            <div class="events-section">
+                <h2>Événements à venir</h2>
+                <div id="eventsContainer">
+                    <div class="event-card">
+                        <div class="event-countdown" id="countdown"></div>
+                        <div class="event-title">ASSOCIATION TERRE OCÉANE</div>
+                        <div class="event-info"><strong>Lieu :</strong> PLOUGASTEL</div>
+                        <div class="event-info"><strong>Date :</strong> 24/01/2026 - 16H00</div>
+                        <div class="event-info"><strong>Participants :</strong> 10 personnes attendues</div>
+                        <span class="event-type">GRANDE ZONE POLLUÉE</span>
+                        <button class="btn-participate" onclick="participate()">PARTICIPER</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour envoyer un message
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const messageText = input.value.trim();
+            
+            if (messageText === '') {
+                alert('Veuillez écrire un message');
+                return;
+            }
+
+            const messagesContainer = document.getElementById('messagesContainer');
+            
+            // Créer le nouveau message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('fr-FR');
+            const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <span class="message-author">VOUS</span>
+                    <span class="message-time">${dateStr} ${timeStr}</span>
+                </div>
+                <div class="message-content">${messageText}</div>
+            `;
+            
+            // Ajouter le message
+            messagesContainer.appendChild(messageDiv);
+            
+            // Scroller vers le bas
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Vider l'input
+            input.value = '';
+        }
+
+        // Permettre l'envoi avec Ctrl+Entrée
+        document.getElementById('messageInput').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Fonction pour participer à un événement
+        function participate() {
+            alert('Votre participation a été enregistrée ! Vous recevrez une confirmation par email.');
+        }
+
+        // Fonction pour calculer le compte à rebours
+        function updateCountdown() {
+            const eventDate = new Date('2026-01-24T16:00:00');
+            const now = new Date();
+            const diff = eventDate - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+                document.getElementById('countdown').textContent = `${days} J ${hours} H ${minutes} MIN`;
+            } else {
+                document.getElementById('countdown').textContent = 'ÉVÉNEMENT TERMINÉ';
+            }
+        }
+
+        // Mettre à jour le compte à rebours toutes les minutes
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+
+        // Interface pour récupérer/envoyer des données depuis/vers d'autres pages
+        window.WasteHunter = {
+            // Récupérer tous les messages
+            getMessages: function() {
+                const messages = [];
+                document.querySelectorAll('.message').forEach(msg => {
+                    messages.push({
+                        author: msg.querySelector('.message-author').textContent,
+                        time: msg.querySelector('.message-time').textContent,
+                        content: msg.querySelector('.message-content').textContent
+                    });
+                });
+                return messages;
+            },
+            
+            // Ajouter un message depuis une autre page
+            addMessage: function(author, content) {
+                const messagesContainer = document.getElementById('messagesContainer');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('fr-FR');
+                const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <span class="message-author">${author}</span>
+                        <span class="message-time">${dateStr} ${timeStr}</span>
+                    </div>
+                    <div class="message-content">${content}</div>
+                `;
+                
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            },
+            
+            // Ajouter un événement depuis la page calendrier
+            addEvent: function(eventData) {
+                const eventsContainer = document.getElementById('eventsContainer');
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                
+                eventCard.innerHTML = `
+                    <div class="event-countdown">À VENIR</div>
+                    <div class="event-title">${eventData.organizer || 'Événement'}</div>
+                    <div class="event-info"><strong>Lieu :</strong> ${eventData.location}</div>
+                    <div class="event-info"><strong>Date :</strong> ${eventData.date}</div>
+                    <div class="event-info"><strong>Participants :</strong> ${eventData.participants || 'Non spécifié'}</div>
+                    <span class="event-type">${eventData.type || 'RAMASSAGE'}</span>
+                    <button class="btn-participate" onclick="participate()">PARTICIPER</button>
+                `;
+                
+                eventsContainer.appendChild(eventCard);
+            },
+            
+            // Récupérer tous les événements
+            getEvents: function() {
+                const events = [];
+                document.querySelectorAll('.event-card').forEach(card => {
+                    events.push({
+                        title: card.querySelector('.event-title').textContent,
+                        location: card.querySelector('.event-info').textContent.split(':')[1]?.trim(),
+                        type: card.querySelector('.event-type').textContent
+                    });
+                });
+                return events;
+            }
+        };
+
+        // Exposer l'interface globalement pour permettre aux autres pages d'y accéder
+        console.log('Interface Waste Hunter disponible via window.WasteHunter');
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Hunter - Profil Utilisateur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Impact.css">
+</head>
+<body>
+    <div class="main-content">
+        <!-- Section gauche -->
+        <div class="left-section">
+            <h1 class="title">Waste Hunter</h1>
+
+            <div class="badges-section">
+                <h2 class="section-title">Badges</h2>
+
+                <div class="badge-item">
+                    <svg class="badge-icon" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#b5d2dd" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="30" fill="#7FB539"/>
+                        <path d="M 50 20 L 55 35 L 70 35 L 58 45 L 63 60 L 50 50 L 37 60 L 42 45 L 30 35 L 45 35 Z" fill="#b5d2dd"/>
+                        <path d="M 35 70 L 50 85 L 65 70 L 60 75 L 50 80 L 40 75 Z" fill="#b5d2dd"/>
+                    </svg>
+                    <div class="badge-content">
+                        <h3>Trash ninja</h3>
+                        <p>Tu as participé au ramassages de 3 différents types de déchets</p>
+                    </div>
+                </div>
+
+                <div class="badge-item">
+                    <svg class="badge-icon" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#b5d2dd" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="30" fill="#7FB539"/>
+                        <path d="M 50 20 L 55 35 L 70 35 L 58 45 L 63 60 L 50 50 L 37 60 L 42 45 L 30 35 L 45 35 Z" fill="#b5d2dd"/>
+                        <path d="M 35 70 L 50 85 L 65 70 L 60 75 L 50 80 L 40 75 Z" fill="#b5d2dd"/>
+                    </svg>
+                    <div class="badge-content">
+                        <h3>Héros du caniveau</h3>
+                        <p>Tu es intervenu sur un site particulièrement sensible et prioritaire</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h2 class="section-title">Statistiques</h2>
+
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-text">Nombre de clean walk réalisées</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-text">Nombre de déclaration de zones<br>à nettoyer</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section droite -->
+        <div class="right-section">
+            <h2 class="impact-title">Le nombre de ramassages que tu as effectué :</h2>
+            
+            <div class="gauge-container">
+                <svg class="gauge-svg" viewBox="0 0 200 200">
+                    <circle class="gauge-bg" cx="100" cy="100" r="80"/>
+                    <circle class="gauge-progress" cx="100" cy="100" r="80"
+                            stroke-dasharray="502.4"
+                            stroke-dashoffset="251.2"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    </nav>
+<!-- MENU DE NAVIGATION -->
+<nav class="navigation-menu">
+    <a href="index.html" class="nav-item">
+        <div class="nav-icon">🏠</div>
+        <div class="nav-label">Accueil</div>
+    </a>
+    <a href="Impact.html" class="nav-item">
+        <div class="nav-icon">📊</div>
+        <div class="nav-label">Impact</div>
+    </a>
+    <a href="discussion_barre_recherche.html" class="nav-item">
+        <div class="nav-icon">💬</div>
+        <div class="nav-label">Discussion</div>
+    </a>
+    <a href="index_calendrier.html" class="nav-item">
+        <div class="nav-icon">📅</div>
+        <div class="nav-label">Calendrier</div>
+    </a>
+    <button class="settings-btn" onclick="window.location.href='parametres.html'">⚙️</button>
+</nav>
+    <!-- Bouton profil -->
+    <button class="profile-button">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+        </svg>
+    </button>
+
+    <script>
+        // Animation de la jauge au chargement
+        window.addEventListener('load', () => {
+            const progress = document.querySelector('.gauge-progress');
+            const percentage = 50;
+            const circumference = 2 * Math.PI * 80;
+            const offset = circumference - (percentage / 100 * circumference);
+            progress.style.strokeDashoffset = offset;
+        });
+    </script>
+</body>
+</html>

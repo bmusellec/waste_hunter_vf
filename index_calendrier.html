@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Waste Hunter – Calendrier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
+  <!-- CSS partagé -->
+  <link rel="stylesheet" href="style_calendrier.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- LEFT -->
+  <div class="left-panel">
+    <h1>Waste Hunter</h1>
+    <p style="text-align:center;">Événement à venir</p>
+
+    <div class="countdown">
+      <div class="time-box"><span id="days">0</span>J</div>
+      <div class="time-box"><span id="hours">0</span>H</div>
+      <div class="time-box"><span id="minutes">0</span>MIN</div>
+    </div>
+
+    <div class="event-info" id="event-info">
+      <p><strong>Lieu :</strong> <span id="info-lieu">–</span></p>
+      <p><strong>Heure :</strong> <span id="info-heure">–</span></p> <!-- nouvelle ligne -->
+      <p><strong>Date :</strong> <span id="info-date">–</span></p>
+      <p><strong>Type :</strong> <span id="info-type">–</span></p>
+      <p><strong>Places :</strong> <span id="info-places">–</span></p>
+      <p><strong>Organisateur :</strong> <span id="info-organisateur">–</span></p> <!-- nouvelle ligne -->
+
+    </div>
+
+    <button class="participate-btn" onclick="openModal()">Participer</button>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-panel">
+    <div id="calendar"></div>
+
+    <div class="google-link">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ramassage+des+d%C3%A9chets&dates=20260110T143000Z/20260110T170000Z&details=Nettoyage+de+la+rade+de+Brest&location=Rade+de+Brest" target="_blank">
+        ➕ Ajouter à mon Google Agenda
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL FORM -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3>Participation</h3>
+    <input type="text" placeholder="Nom" />
+    <input type="text" placeholder="Prénom" />
+    <input type="tel" placeholder="Téléphone" />
+    <button class="participate-btn" onclick="sendForm()">Envoyer</button>
+    <button class="close-btn" onclick="closeModal()">Fermer</button>
+  </div>
+</div>
+
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+<!-- Script personnalisé -->
+<script src="script_calendrier.js"></script>
+
+<!-- MENU DE NAVIGATION -->
+<nav class="navigation-menu">
+    <a href="index.html" class="nav-item">
+        <div class="nav-icon">🏠</div>
+        <div class="nav-label">Accueil</div>
+    </a>
+    <a href="impact.html" class="nav-item">
+        <div class="nav-icon">📊</div>
+        <div class="nav-label">Impact</div>
+    </a>
+    <a href="discussion_barre_recherche.html" class="nav-item">
+        <div class="nav-icon">💬</div>
+        <div class="nav-label">Discussion</div>
+    </a>
+    <a href="calendrier.html" class="nav-item active">
+        <div class="nav-icon">📅</div>
+        <div class="nav-label">Calendrier</div>
+    </a>
+    <button class="settings-btn" onclick="window.location.href='parametres.html'">⚙️</button>
+</nav>
+
+</body>
+</html>

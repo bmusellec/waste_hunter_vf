@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Profil Waste Hunter</title>
+<style>
+/* === CSS partagé fourni === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #4D6DB1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    padding: 20px 0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(135deg, rgba(181, 210, 221, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 10% 20%, rgba(181, 210, 221, 0.3) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 80%, rgba(181, 210, 221, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 60%, rgba(181, 210, 221, 0.2) 0%, transparent 45%),
+        radial-gradient(ellipse at 70% 30%, rgba(181, 210, 221, 0.15) 0%, transparent 40%);
+    opacity: 0.6;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 30px;
+}
+
+/* ===== LEFT PANEL ===== */
+.left-panel {
+    flex: 0 0 35%;
+    background-color: rgba(181, 210, 221, 0.2);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.left-panel h1 {
+    margin-bottom: 20px;
+    font-size: 48px;
+    text-align: center;
+}
+
+.menu-links p a {
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    margin: 15px 0;
+    text-decoration: underline;
+}
+
+/* ===== RIGHT PANEL ===== */
+.right-panel {
+    flex: 0 0 65%;
+    background-color: rgba(181, 210, 221, 0.2);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px; /* espace pour le menu fixe */
+}
+
+
+/* Avatar */
+.avatar-section {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #4D6DB1; /* cercle visible avant chargement */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.avatar-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.avatar-section img:hover {
+    transform: scale(1.05);
+}
+
+.avatar-text {
+    position: absolute;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    pointer-events: none;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Stars */
+.stars {
+    font-size: 24px;
+    color: #FFD700;
+    margin: 10px 0 30px 0;
+}
+
+.stars .star {
+    cursor: pointer;
+}
+
+/* Profile info */
+.profile-info {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-info label {
+    font-weight: 600;
+    color: #1D2A44;
+}
+
+.profile-info input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Buttons */
+button {
+    padding: 12px 20px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    width: 200px;
+    transition: all 0.3s;
+}
+
+#save-btn {
+    background-color: #5a8fa8;
+    color: #fff;
+}
+
+#save-btn:hover {
+    background-color: #487489;
+}
+
+#logout-btn {
+    background-color: #c26c7a;
+    color: #fff;
+}
+
+#logout-btn:hover {
+    background-color: #b05867;
+}
+
+/* Responsive */
+@media(max-width: 968px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .left-panel, .right-panel {
+        flex: 1 0 100%;
+    }
+    .avatar-section {
+        width: 150px;
+        height: 150px;
+    }
+    button {
+        width: 100%;
+    }
+}
+
+/* === MENU DE NAVIGATION === */
+.navigation-menu {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #b5d2dd;
+    border-radius: 50px;
+    padding: 15px 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #4D6DB1;
+    min-width: 80px;
+}
+
+.nav-item:hover {
+    background-color: rgba(77, 109, 177, 0.15);
+    transform: translateY(-3px);
+}
+
+.nav-item.active {
+    background-color: #4D6DB1;
+    color: #fff;
+}
+
+.nav-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.nav-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.settings-btn {
+    background-color: #c26c7a;
+    color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    border: none;
+    font-size: 24px;
+}
+
+.settings-btn:hover {
+    background-color: #b05867;
+    transform: rotate(90deg) scale(1.1);
+}
+
+@media (max-width: 968px) {
+    .navigation-menu {
+        width: 95%;
+        padding: 10px 15px;
+        gap: 5px;
+    }
+
+    .nav-item {
+        padding: 10px 12px;
+        min-width: 60px;
+    }
+
+    .nav-icon {
+        font-size: 20px;
+    }
+
+    .nav-label {
+        font-size: 10px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- PANEL GAUCHE -->
+    <div class="left-panel">
+        <h1>Waste Hunter</h1>
+        <div class="menu-links">
+            <p><a href="#">Mot de passe et sécurité</a></p>
+            <p><a href="#">Centre de confidentialité</a></p>
+            <p><a href="#">À propos</a></p>
+        </div>
+    </div>
+
+    <!-- PANEL DROIT -->
+    <div class="right-panel">
+        <div class="avatar-section">
+            <img src="https://via.placeholder.com/200" id="avatar-img" alt="Avatar">
+            <div class="avatar-text">Ajouter une photo</div>
+            <input type="file" id="avatar-input" accept="image/*" style="display:none;">
+        </div>
+
+        <p>Niveau d'expérience :</p>
+        <div class="stars">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+        </div>
+
+        <div class="profile-info">
+            <label>Nom :</label>
+            <input type="text" id="nom">
+            <label>Prénom :</label>
+            <input type="text" id="prenom">
+            <label>Pseudo :</label>
+            <input type="text" id="pseudo">
+            <label>Date de naissance :</label>
+            <input type="date" id="dateNaissance">
+        </div>
+
+        <button id="save-btn">Enregistrer</button>
+        <button id="logout-btn">SE DÉCONNECTER</button>
+    </div>
+
+</div>
+
+<!-- MENU DE NAVIGATION -->
+<nav class="navigation-menu">
+    <a href="index.html" class="nav-item">
+        <div class="nav-icon">🏠</div>
+        <div class="nav-label">Accueil</div>
+    </a>
+    <a href="impact.html" class="nav-item">
+        <div class="nav-icon">📊</div>
+        <div class="nav-label">Impact</div>
+    </a>
+    <a href="discussion_barre_recherche.html" class="nav-item">
+        <div class="nav-icon">💬</div>
+        <div class="nav-label">Discussion</div>
+    </a>
+    <a href="index_calendrier.html" class="nav-item">
+        <div class="nav-icon">📅</div>
+        <div class="nav-label">Calendrier</div>
+    </a>
+    <button class="settings-btn" onclick="window.location.href='parametres.html'">⚙️</button>
+</nav>
+
+<script>
+/* Gestion avatar */
+const avatarImg = document.getElementById("avatar-img");
+const avatarInput = document.getElementById("avatar-input");
+const avatarText = document.querySelector(".avatar-text");
+
+avatarImg.addEventListener("click", () => avatarInput.click());
+avatarInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = () => {
+            avatarImg.src = reader.result;
+            avatarText.style.display = "none"; // cacher le texte après ajout
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+/* Gestion étoiles */
+const stars = document.querySelectorAll(".star");
+stars.forEach(star => {
+    star.addEventListener("click", () => {
+        const value = star.getAttribute("data-value");
+        stars.forEach(s => {
+            s.textContent = s.getAttribute("data-value") <= value ? "★" : "☆";
+        });
+        localStorage.setItem("niveauExperience", value);
+    });
+});
+
+/* Charger l'expérience et profil */
+window.addEventListener("DOMContentLoaded", () => {
+    const savedLevel = localStorage.getItem("niveauExperience");
+    if(savedLevel){
+        stars.forEach(s => {
+            s.textContent = s.getAttribute("data-value") <= savedLevel ? "★" : "☆";
+        });
+    }
+
+    const saved = JSON.parse(localStorage.getItem("profileData"));
+    if(saved){
+        document.getElementById("nom").value = saved.nom || "";
+        document.getElementById("prenom").value = saved.prenom || "";
+        document.getElementById("pseudo").value = saved.pseudo || "";
+        document.getElementById("dateNaissance").value = saved.dateNaissance || "";
+        if(saved.avatar){
+            avatarImg.src = saved.avatar;
+            avatarText.style.display = "none"; // cacher texte si avatar existant
+        }
+    }
+});
+
+/* Sauvegarder profil */
+document.getElementById("save-btn").addEventListener("click", () => {
+    const nom = document.getElementById("nom").value;
+    const prenom = document.getElementById("prenom").value;
+    const pseudo = document.getElementById("pseudo").value;
+    const dateNaissance = document.getElementById("dateNaissance").value;
+    const avatar = avatarImg.src;
+
+    const profile = {nom, prenom, pseudo, dateNaissance, avatar};
+    localStorage.setItem("profileData", JSON.stringify(profile));
+
+    alert("Profil enregistré !");
+});
+
+/* Déconnexion */
+/* Déconnexion */
+const logoutBtn = document.getElementById('logout-btn');
+
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('currentUser');
+        window.location.href = "connexion.html";
+    });
+}
+
+
+</script>
+</body>
+</html>

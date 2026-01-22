@@ -1,0 +1,259 @@
+/* === CSS partagé fourni === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #4D6DB1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    padding: 20px 0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(135deg, rgba(181, 210, 221, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 10% 20%, rgba(181, 210, 221, 0.3) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 80%, rgba(181, 210, 221, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 60%, rgba(181, 210, 221, 0.2) 0%, transparent 45%),
+        radial-gradient(ellipse at 70% 30%, rgba(181, 210, 221, 0.15) 0%, transparent 40%);
+    opacity: 0.6;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 30px;
+}
+
+/* ===== LEFT PANEL ===== */
+.left-panel {
+    flex: 0 0 35%;
+    background-color: rgba(181, 210, 221, 0.2);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.left-panel h1 {
+    margin-bottom: 20px;
+    font-size: 48px;
+    text-align: center;
+}
+
+.countdown {
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+    justify-content: center;
+}
+
+.time-box {
+    background: rgba(29, 42, 68, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 80px;
+}
+
+.time-box span {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.event-info {
+    background: rgba(29, 42, 68, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.participate-btn {
+    background-color: #c26c7a;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.participate-btn:hover {
+    background-color: #b05867;
+}
+
+/* ===== RIGHT PANEL ===== */
+.right-panel {
+    flex: 0 0 65%;
+    background-color: rgba(181, 210, 221, 0.2);
+    padding: 30px;
+    border-radius: 20px;
+}
+
+#calendar {
+    background: rgba(255,255,255,0.9);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.google-link {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.google-link a {
+    text-decoration: none;
+    color: #1a73e8;
+    font-weight: bold;
+}
+
+/* ===== MODAL ===== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #b5d2dd;
+    padding: 25px;
+    border-radius: 20px;
+    width: 300px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+.close-btn {
+    background: #ccc;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+/* === MENU DE NAVIGATION === */
+.navigation-menu {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #b5d2dd;
+    border-radius: 50px;
+    padding: 15px 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #4D6DB1;
+    min-width: 80px;
+}
+
+.nav-item:hover {
+    background-color: rgba(77, 109, 177, 0.15);
+    transform: translateY(-3px);
+}
+
+.nav-item.active {
+    background-color: #4D6DB1;
+    color: #fff;
+}
+
+.nav-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.nav-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.settings-btn {
+    background-color: #c26c7a;
+    color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    border: none;
+    font-size: 24px;
+}
+
+.settings-btn:hover {
+    background-color: #b05867;
+    transform: rotate(90deg) scale(1.1);
+}
+
+@media (max-width: 968px) {
+    .navigation-menu {
+        width: 95%;
+        padding: 10px 15px;
+        gap: 5px;
+    }
+
+    .nav-item {
+        padding: 10px 12px;
+        min-width: 60px;
+    }
+
+    .nav-icon {
+        font-size: 20px;
+    }
+
+    .nav-label {
+        font-size: 10px;
+    }
+}

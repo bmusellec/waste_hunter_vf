@@ -1,0 +1,167 @@
+[
+  {
+    "question": "Quel type de déchet est le plus souvent retrouvé sur les plages ?",
+    "options": [
+      "Les déchets en verre",
+      "Les déchets plastiques",
+      "Les déchets métalliques",
+      "Les déchets organiques"
+    ],
+    "correctIndex": 1,
+    "explanation": "Les déchets plastiques sont les plus fréquents sur les plages, car ils sont légers, très répandus et se déplacent facilement avec le vent et les courants."
+  },
+  {
+    "question": "Pourquoi les déchets plastiques sont-ils dangereux pour la faune marine ?",
+    "options": [
+      "Ils rendent l’eau plus salée",
+      "Les animaux peuvent les confondre avec de la nourriture",
+      "Ils empêchent la lumière du soleil de passer",
+      "Ils augmentent la température de l’eau"
+    ],
+    "correctIndex": 1,
+    "explanation": "Les animaux marins peuvent confondre les plastiques avec de la nourriture, ce qui entraîne blessures, suffocation ou mort."
+  },
+  {
+    "question": "Vrai ou faux : Les déchets jetés dans la rue peuvent finir dans la mer.",
+    "options": [
+      "Vrai",
+      "Faux",
+      "Seulement en été",
+      "Uniquement dans les zones portuaires"
+    ],
+    "correctIndex": 0,
+    "explanation": "Tout déchet jeté dans la rue peut être emporté par les cours d’eau et finir dans les océans."
+  },
+  {
+    "question": "Quelle action simple peut-on faire lors d’une promenade sur la plage ?",
+    "options": [
+      "Nourrir les animaux marins",
+      "Ramasser ses déchets et ceux visibles",
+      "Enterrer les déchets dans le sable",
+      "Les jeter dans la mer"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ramasser ses déchets et ceux visibles est un geste simple mais très efficace pour protéger la faune et l’environnement."
+  },
+  {
+    "question": "Que signifie le symbole ♻️ ?",
+    "options": [
+      "Déchet dangereux",
+      "Déchet biodégradable",
+      "Déchet recyclable",
+      "Déchet interdit"
+    ],
+    "correctIndex": 2,
+    "explanation": "Le symbole ♻️ indique que le produit ou l’emballage peut être recyclé."
+  },
+  {
+    "question": "Combien de temps met environ une bouteille en plastique à se dégrader ?",
+    "options": [
+      "1 an",
+      "10 ans",
+      "100 ans",
+      "Environ 450 ans"
+    ],
+    "correctIndex": 3,
+    "explanation": "Une bouteille en plastique met environ 450 ans à se dégrader dans la nature."
+  },
+  {
+    "question": "Quels animaux sont les plus touchés par les déchets marins ?",
+    "options": [
+      "Les insectes",
+      "Les oiseaux marins, tortues et poissons",
+      "Les animaux terrestres",
+      "Les plantes uniquement"
+    ],
+    "correctIndex": 1,
+    "explanation": "Les oiseaux marins, les tortues et les poissons sont particulièrement touchés par les déchets plastiques."
+  },
+  {
+    "question": "Quelle est la principale source des déchets retrouvés sur les plages ?",
+    "options": [
+      "Les volcans",
+      "Les bateaux uniquement",
+      "Les activités humaines à terre et en mer",
+      "Les algues"
+    ],
+    "correctIndex": 2,
+    "explanation": "La majorité des déchets proviennent des activités humaines, que ce soit à terre (rivières, villes) ou en mer (bateaux, pêche)."
+  },
+  {
+    "question": "Pourquoi les mégots de cigarette sont-ils très polluants ?",
+    "options": [
+      "Ils sont radioactifs",
+      "Ils contiennent des substances toxiques",
+      "Ils attirent les animaux",
+      "Ils se dégradent trop vite"
+    ],
+    "correctIndex": 1,
+    "explanation": "Les mégots contiennent des substances chimiques toxiques pour la faune et la flore et mettent longtemps à se dégrader."
+  },
+  {
+    "question": "Que devient la majorité des déchets collectés lors d’un nettoyage de plage ?",
+    "options": [
+      "Ils sont tous recyclés",
+      "Ils sont jetés dans la mer",
+      "Ils sont triés puis traités (recyclage ou élimination)",
+      "Ils sont enterrés sur la plage"
+    ],
+    "correctIndex": 2,
+    "explanation": "Les déchets collectés sont triés pour être recyclés ou éliminés correctement."
+  },
+  {
+    "question": "Qu’appelle-t-on le « 7e continent » ?",
+    "options": [
+      "Une île artificielle",
+      "Un continent émergé",
+      "Une zone d’accumulation de déchets plastiques dans l’océan",
+      "Un pays pollué"
+    ],
+    "correctIndex": 2,
+    "explanation": "Le « 7e continent » désigne une immense zone de déchets plastiques flottants dans l’océan Pacifique."
+  },
+  {
+    "question": "Que sont les microplastiques ?",
+    "options": [
+      "De gros déchets visibles",
+      "Des plastiques de plus de 1 mètre",
+      "De très petits fragments de plastique",
+      "Des déchets naturels"
+    ],
+    "correctIndex": 2,
+    "explanation": "Les microplastiques sont de très petits fragments de plastique issus de la dégradation de plus gros déchets ou de produits industriels."
+  },
+  {
+    "question": "Quel impact les déchets littoraux peuvent-ils avoir sur l’économie locale ?",
+    "options": [
+      "Aucun",
+      "Ils attirent plus de touristes",
+      "Ils nuisent au tourisme et à la pêche",
+      "Ils augmentent les emplois"
+    ],
+    "correctIndex": 2,
+    "explanation": "Les déchets sur les côtes nuisent au tourisme et à la pêche locale, impactant directement l’économie."
+  },
+  {
+    "question": "Pourquoi la prévention est-elle plus efficace que le nettoyage seul ?",
+    "options": [
+      "Elle coûte plus cher",
+      "Elle empêche les déchets d’atteindre la mer",
+      "Elle est plus lente",
+      "Elle remplace totalement le tri"
+    ],
+    "correctIndex": 1,
+    "explanation": "Prévenir les déchets avant qu’ils atteignent la mer est plus efficace que de simplement nettoyer après coup."
+  },
+  {
+    "question": "Quelle action permet de réduire les déchets avant qu’ils arrivent en mer ?",
+    "options": [
+      "Nettoyer uniquement les plages",
+      "Utiliser des produits jetables",
+      "Réduire, réutiliser et recycler",
+      "Jeter les déchets dans les égouts"
+    ],
+    "correctIndex": 2,
+    "explanation": "Réduire, réutiliser et recycler permet de limiter la quantité de déchets produits et leur impact sur les océans."
+  }
+]

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waste Hunter - Question du jour</title>
+<link rel="stylesheet" href="style_quizz.css">
+</head>
+<body>
+<div class="container">
+    <div class="wave-decoration"></div>
+    
+    <h1 class="title">Waste Hunter</h1>
+    
+    <div class="quiz-box">
+        <h2 class="quiz-title">Question du jour</h2>
+        <p class="quiz-question"></p>
+        
+        <form class="quiz-form" id="quizForm">
+            <label class="quiz-option">
+                <input type="radio" name="answer" required>
+                <span class="option-text"></span>
+            </label>
+            
+            <label class="quiz-option">
+                <input type="radio" name="answer" required>
+                <span class="option-text"></span>
+            </label>
+            
+            <label class="quiz-option">
+                <input type="radio" name="answer" required>
+                <span class="option-text"></span>
+            </label>
+            
+            <label class="quiz-option">
+                <input type="radio" name="answer" required>
+                <span class="option-text"></span>
+            </label>
+            
+            <button type="submit" class="btn-validate">Valider la réponse</button>
+        </form>
+        
+        <div id="resultBox" class="result-box hidden">
+            <div class="result-content">
+                <h3 id="resultTitle"></h3>
+                <p id="resultExplanation"></p>
+                <button id="nextQuestion" class="btn-next">Retour à l'accueil</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="ocean-image">
+        <img src="ocean-plastic.jpg" alt="Pollution plastique dans l'océan">
+    </div>
+</div>
+
+<script>
+let questions = [];
+let currentQuestion = null;
+
+const quizForm = document.getElementById('quizForm');
+const questionText = document.querySelector('.quiz-question');
+const optionsLabels = document.querySelectorAll('.quiz-option');
+const resultBox = document.getElementById('resultBox');
+const resultTitle = document.getElementById('resultTitle');
+const resultExplanation = document.getElementById('resultExplanation');
+const nextButton = document.getElementById('nextQuestion');
+
+// Charger les questions depuis le JSON
+fetch('questions.json')
+  .then(response => response.json())
+  .then(data => {
+    questions = data;
+    loadRandomQuestion();
+  })
+  .catch(err => console.error('Erreur chargement JSON', err));
+
+function loadRandomQuestion() {
+  resultBox.classList.add('hidden');
+  quizForm.style.display = 'flex';
+
+  currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+
+  questionText.textContent = currentQuestion.question;
+
+  optionsLabels.forEach((label, index) => {
+    const input = label.querySelector('input');
+    const text = label.querySelector('.option-text');
+
+    input.value = index;
+    input.disabled = false;
+    input.checked = false;
+
+    label.classList.remove('correct-answer', 'wrong-answer');
+    text.textContent = currentQuestion.options[index];
+  });
+}
+
+quizForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const selected = document.querySelector('input[name="answer"]:checked').value;
+  const correct = currentQuestion.correctIndex;
+
+  optionsLabels.forEach((label, index) => {
+    const input = label.querySelector('input');
+    input.disabled = true;
+
+    if (index === correct) {
+      label.classList.add('correct-answer');
+    }
+
+    if (index == selected && index !== correct) {
+      label.classList.add('wrong-answer');
+    }
+  });
+
+  quizForm.style.display = 'none';
+  resultBox.classList.remove('hidden');
+
+  if (selected == correct) {
+    resultTitle.textContent = "✅ Bonne réponse !";
+    resultTitle.className = "result-title-correct";
+  } else {
+    resultTitle.textContent = "❌ Mauvaise réponse";
+    resultTitle.className = "result-title-wrong";
+  }
+
+  resultExplanation.textContent = currentQuestion.explanation;
+});
+
+// Redirection vers la page d'accueil après la question
+nextButton.addEventListener('click', function() {
+    window.location.href = "index.html"; // Change si ta page d'accueil a un autre nom
+});
+</script>
+
+</body>
+</html>
